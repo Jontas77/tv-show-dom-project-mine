@@ -12,16 +12,18 @@ body {
 }
 
 .episode {
-    width: 30%;
-    margin: 1rem 0.7%;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+  width: 30%;
+  margin: 1rem 0.7%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
 .title {
   border: 1px solid lightgrey;
   border-radius: 10px;
   padding: 2rem 0px;
+  background-color: rgba(40, 153, 40, 0.877);
+  color: #fff;
 }
