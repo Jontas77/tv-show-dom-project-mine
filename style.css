@@ -1,3 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
 #root {
-  color: red;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.episode {
+    width: 30%;
+    margin: 1rem 0.7%;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.title {
+  border: 1px solid lightgrey;
+  border-radius: 10px;
+  padding: 2rem 0px;
 }
