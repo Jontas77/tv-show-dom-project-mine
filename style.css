@@ -26,6 +26,18 @@ body {
   padding: 2rem 0px;
   background-color: rgba(40, 153, 40, 0.877);
   color: #fff;
+  cursor: pointer;
+}
+
+.title-link {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.title:hover {
+  background-color: rgb(243, 163, 13);
 }
 
 #search-container {
@@ -35,13 +47,13 @@ body {
 }
 
 #searchBar {
-  width: 40%;
+  width: 30%;
   height: 32px;
   position: absolute;
   top: 16px;
-  left: 24px;
+  left: 450px;
   border: 1px solid #eaeaea;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 5px 10px;
   font-size: 1rem;
 }
@@ -50,13 +62,22 @@ body {
   content: '🔍';
   position: absolute;
   top: 25px;
-  left: 520px;
+  right: 600px;
 }
 
 #count {
   position: absolute;
   top: 27px;
-  right: 510px;
+  right: 350px;
   color: white;
   font-weight: bold;
+}
+
+#dropdown {
+  height: 45px;
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  border-radius: 10px;
+  font-size: 1rem;
 }

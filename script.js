@@ -1,7 +1,7 @@
 //You can edit ALL of the code here
-
+const allEpisodes = getAllEpisodes();
 function setup() {
-  const allEpisodes = getAllEpisodes();
+  
   makePageForEpisodes(allEpisodes);
 }
 
@@ -21,9 +21,9 @@ function makePageForEpisodes(episodeList) {
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
     pTag.setAttribute("class", "title");
-    pTag.innerHTML = `<strong>${item.name} - S${zero(item.season)}E${zero(
+    pTag.innerHTML = `<a href=${item.url} class="title-link"><strong>${item.name} - S${zero(item.season)}E${zero(
       item.number
-    )}</strong> `;
+    )}</strong></a> `;
     let imgTag = document.createElement("img");
     episodeDiv.appendChild(imgTag);
     imgTag.src = `${item.image.medium}`;
@@ -32,7 +32,7 @@ function makePageForEpisodes(episodeList) {
     pSummary.innerHTML = `${item.summary}`;
     let link = document.createElement("a");
     episodeDiv.appendChild(link);
-    link.setAttribute("href", `${item._links.self.href}`);
+    link.setAttribute("href", `${item.url}`);
     link.innerText = "See full episode here";
   });
 }
@@ -53,5 +53,20 @@ searchBar.addEventListener("keyup", (e) => {
 
   makePageForEpisodes(filterEpisodes);
 });
+
+const containerDiv = document.getElementById('search-container');
+const selectTag = document.createElement('select');
+containerDiv.appendChild(selectTag);
+
+function dropdownMenu(list) {
+  list.forEach(element => {
+    const optionTag = document.createElement('option');
+    selectTag.appendChild(optionTag);
+    selectTag.setAttribute('id', 'dropdown');
+    optionTag.innerText = `S${zero(element.season)}E${zero(
+      element.number)} - ${element.name}`;
+  });
+}
+dropdownMenu(allEpisodes);
 
 window.onload = setup;
