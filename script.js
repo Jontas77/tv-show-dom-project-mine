@@ -1,4 +1,5 @@
 //You can edit ALL of the code here
+
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
@@ -10,15 +11,16 @@ function zero(num) {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  const count = document.getElementById('count');
+  count.innerText = `Displaying ${episodeList.length} episode(s)`;
+  rootElem.textContent = '';
   episodeList.forEach((item) => {
-    console.log(item);
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
     rootElem.appendChild(episodeDiv);
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
-    pTag.setAttribute('class', 'title');
+    pTag.setAttribute("class", "title");
     pTag.innerHTML = `<strong>${item.name} - S${zero(item.season)}E${zero(
       item.number
     )}</strong> `;
@@ -28,11 +30,28 @@ function makePageForEpisodes(episodeList) {
     let pSummary = document.createElement("p");
     episodeDiv.appendChild(pSummary);
     pSummary.innerHTML = `${item.summary}`;
-    let link = document.createElement('a');
+    let link = document.createElement("a");
     episodeDiv.appendChild(link);
-    link.setAttribute('href', `${item._links.self.href}`);
-    link.innerText = 'See full episode here';
+    link.setAttribute("href", `${item._links.self.href}`);
+    link.innerText = "See full episode here";
   });
 }
+
+// Search Bar
+const searchBar = document.getElementById("searchBar");
+let episodeResult = [];
+
+searchBar.addEventListener("keyup", (e) => {
+  let searchString = e.target.value.toLowerCase();
+  episodeResult = getAllEpisodes();
+  let filterEpisodes = episodeResult.filter((episode) => {
+    return (
+      episode.name.toLowerCase().includes(searchString) ||
+      episode.summary.toLowerCase().includes(searchString)
+    );
+  });
+
+  makePageForEpisodes(filterEpisodes);
+});
 
 window.onload = setup;
