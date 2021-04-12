@@ -63,10 +63,19 @@ function dropdownMenu(list) {
     const optionTag = document.createElement('option');
     selectTag.appendChild(optionTag);
     selectTag.setAttribute('id', 'dropdown');
-    optionTag.innerText = `S${zero(element.season)}E${zero(
+    selectTag.setAttribute('name', 'dropdown');
+    selectTag.setAttribute('onchange', 'getSelectedValue()');
+    optionTag.setAttribute('value', `${element.name}`);
+    optionTag.innerHTML = `S${zero(element.season)}E${zero(
       element.number)} - ${element.name}`;
   });
 }
 dropdownMenu(allEpisodes);
+let selectedValue = [];
+function getSelectedValue() {
+  selectedValue = selectTag.value;
+  // makePageForEpisodes(selectedValue);
+  } 
 
+   selectTag.addEventListener('click', getSelectedValue);
 window.onload = setup;
