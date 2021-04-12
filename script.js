@@ -1,7 +1,6 @@
 //You can edit ALL of the code here
 const allEpisodes = getAllEpisodes();
 function setup() {
-  
   makePageForEpisodes(allEpisodes);
 }
 
@@ -11,9 +10,9 @@ function zero(num) {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  const count = document.getElementById('count');
+  const count = document.getElementById("count");
   count.innerText = `Displaying ${episodeList.length} episode(s)`;
-  rootElem.textContent = '';
+  rootElem.textContent = "";
   episodeList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
@@ -21,9 +20,9 @@ function makePageForEpisodes(episodeList) {
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
     pTag.setAttribute("class", "title");
-    pTag.innerHTML = `<a href=${item.url} class="title-link"><strong>${item.name} - S${zero(item.season)}E${zero(
-      item.number
-    )}</strong></a> `;
+    pTag.innerHTML = `<a href=${item.url} class="title-link"><strong>${
+      item.name
+    } - S${zero(item.season)}E${zero(item.number)}</strong></a> `;
     let imgTag = document.createElement("img");
     episodeDiv.appendChild(imgTag);
     imgTag.src = `${item.image.medium}`;
@@ -54,7 +53,8 @@ searchBar.addEventListener("keyup", (e) => {
   makePageForEpisodes(filterEpisodes);
 });
 
-const containerDiv = document.getElementById('search-container');
+// Dropdown
+const containerDiv = document.getElementById("search-container");
 const selectTag = document.createElement('select');
 containerDiv.appendChild(selectTag);
 
@@ -63,19 +63,33 @@ function dropdownMenu(list) {
     const optionTag = document.createElement('option');
     selectTag.appendChild(optionTag);
     selectTag.setAttribute('id', 'dropdown');
-    selectTag.setAttribute('name', 'dropdown');
-    selectTag.setAttribute('onchange', 'getSelectedValue()');
+    selectTag.setAttribute('onchange', 'location = this.value')
     optionTag.setAttribute('value', `${element.name}`);
-    optionTag.innerHTML = `S${zero(element.season)}E${zero(
+    optionTag.innerText = `S${zero(element.season)}E${zero(
       element.number)} - ${element.name}`;
   });
 }
 dropdownMenu(allEpisodes);
-let selectedValue = [];
-function getSelectedValue() {
-  selectedValue = selectTag.value;
-  // makePageForEpisodes(selectedValue);
-  } 
 
-   selectTag.addEventListener('click', getSelectedValue);
+// function dropdownMenu(select) {
+//   const dropDownDiv = document.createElement("div");
+//   containerDiv.appendChild(dropDownDiv);
+//   dropDownDiv.setAttribute("class", "dropdown");
+
+//   select.forEach((show) => {
+//     const ulTag = document.createElement("ul");
+//     dropDownDiv.appendChild(ulTag);
+//     ulTag.setAttribute("class", "dropdown-list");
+//     const liTag = document.createElement("li");
+//     ulTag.appendChild(liTag);
+//     liTag.setAttribute("class", "dropdown-item");
+//     const linkTag = document.createElement("a");
+//     liTag.appendChild(linkTag);
+//     linkTag.setAttribute("href", `${show.name}`);
+//     linkTag.innerText = `S${zero(show.season)}E${zero(show.number)} - ${
+//       show.name
+//     }`;
+//   });
+// }
+// dropdownMenu(allEpisodes);
 window.onload = setup;
