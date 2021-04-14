@@ -1,7 +1,21 @@
 //You can edit ALL of the code here
-const allEpisodes = getAllEpisodes();
+// const allEpisodes = getAllEpisodes();
+const EPISODE_API = ` https://api.tvmaze.com/shows/82/episodes`;
+
 function setup() {
-  makePageForEpisodes(allEpisodes);
+  fetch(`${EPISODE_API}`)
+    .then((response) => {
+      if (response.status >= 200 && response.status <= 299) {
+        return response.json();
+      } else {
+        throw new Error("There is an error in your request");
+      }
+    })
+    .then((data) => {
+      makePageForEpisodes(data);
+      dropdownMenu(data);
+    })
+    .catch((error) => console.log(error));
 }
 
 function zero(num) {
@@ -16,6 +30,7 @@ function makePageForEpisodes(episodeList) {
   episodeList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
+    episodeDiv.setAttribute("id", `${item.id}`);
     rootElem.appendChild(episodeDiv);
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
@@ -42,7 +57,10 @@ let episodeResult = [];
 
 searchBar.addEventListener("keyup", (e) => {
   let searchString = e.target.value.toLowerCase();
-  episodeResult = getAllEpisodes();
+  fetch(`${EPISODE_API}`)
+    .then((response) => response.json())
+    .then((data) => (episodeResult = data));
+
   let filterEpisodes = episodeResult.filter((episode) => {
     return (
       episode.name.toLowerCase().includes(searchString) ||
@@ -55,21 +73,21 @@ searchBar.addEventListener("keyup", (e) => {
 
 // Dropdown
 const containerDiv = document.getElementById("search-container");
-const selectTag = document.createElement('select');
+const selectTag = document.createElement("select");
 containerDiv.appendChild(selectTag);
 
 function dropdownMenu(list) {
-  list.forEach(element => {
-    const optionTag = document.createElement('option');
+  list.forEach((element) => {
+    const optionTag = document.createElement("option");
     selectTag.appendChild(optionTag);
-    selectTag.setAttribute('id', 'dropdown');
-    selectTag.setAttribute('onchange', 'location = this.value')
-    optionTag.setAttribute('value', `${element.name}`);
-    optionTag.innerText = `S${zero(element.season)}E${zero(
-      element.number)} - ${element.name}`;
+    selectTag.setAttribute("id", "dropdown");
+    selectTag.setAttribute("onchange", "location = this.value");
+    optionTag.setAttribute("value", `#${element.id}`);
+    optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
+      element.name
+    }`;
   });
 }
-dropdownMenu(allEpisodes);
 
 // function dropdownMenu(select) {
 //   const dropDownDiv = document.createElement("div");

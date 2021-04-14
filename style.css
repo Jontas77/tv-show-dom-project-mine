@@ -17,13 +17,13 @@ body {
   text-align: center;
   border-radius: 10px;
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 .title {
   border: 1px solid lightgrey;
   border-radius: 10px;
-  padding: 2rem 0px;
+  padding: 1rem 0px;
   background-color: rgba(40, 153, 40, 0.877);
   color: #fff;
   cursor: pointer;
@@ -43,41 +43,41 @@ body {
 #search-container {
   position: relative;
   background-color: rgba(40, 153, 40, 0.877);
-  height: 80px;
+  height: 5rem;
 }
 
 #searchBar {
   width: 30%;
-  height: 32px;
+  height: 2rem;
   position: absolute;
-  top: 16px;
-  left: 450px;
+  top: 1rem;
+  left: 28.125rem;
   border: 1px solid #eaeaea;
   border-radius: 10px;
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
   font-size: 1rem;
 }
 
 #search-container::after {
   content: '🔍';
   position: absolute;
-  top: 25px;
-  right: 600px;
+  top: 1.5625rem;
+  right: 27.1875rem;
 }
 
 #count {
   position: absolute;
-  top: 27px;
-  right: 350px;
+  top: 1.6875rem;
+  right: 8.75rem;
   color: white;
   font-weight: bold;
 }
 
 #dropdown {
-  height: 45px;
+  height: 2.8125rem;
   position: absolute;
-  top: 15px;
-  left: 25px;
+  top: 0.9375rem;
+  left: 1.5625rem;
   border-radius: 10px;
   font-size: 1rem;
 }
