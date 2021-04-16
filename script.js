@@ -12,7 +12,7 @@ function setup() {
     .then((response) => response.json())
     .then((showIds) => {
       showIds.forEach((showID) => {
-        let url = (`${SHOWS_API}/485/episodes`);
+        let url = (`${SHOWS_API}/${showID.id}/episodes`);
         fetch(url)
         .then(response => response.json())
         .then(data => {
