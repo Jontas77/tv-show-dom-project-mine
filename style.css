@@ -1,14 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+
+
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
+  background-color: lightslategray;
 }
 
 #root {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .episode {
@@ -16,8 +20,13 @@ body {
   margin: 1rem 0.7%;
   text-align: center;
   border-radius: 10px;
-  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.45);
   padding: 0.625rem;
+  background-color: #fff;
+}
+
+.episode a {
+  text-decoration: none;
 }
 
 .title {
@@ -47,11 +56,11 @@ body {
 }
 
 #searchBar {
-  width: 30%;
+  width: 20%;
   height: 2rem;
   position: absolute;
   top: 1rem;
-  left: 28.125rem;
+  left: 42.125rem;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   padding: 0.3125rem 0.625rem;
@@ -62,19 +71,32 @@ body {
   content: '🔍';
   position: absolute;
   top: 1.5625rem;
-  right: 27.1875rem;
+  right: 22.1875rem;
 }
 
 #count {
   position: absolute;
   top: 1.6875rem;
-  right: 8.75rem;
+  right: 4.75rem;
   color: white;
   font-weight: bold;
 }
 
-#dropdown {
+
+#dropdownMenu {
   height: 2.8125rem;
+  width: 25%;
+  position: absolute;
+  top: 0.9375rem;
+  left: 21.5625rem;
+  border-radius: 10px;
+  font-size: 1rem;
+   
+}
+
+#dropdownShow {
+  height: 2.8125rem;
+  width: 25%;
   position: absolute;
   top: 0.9375rem;
   left: 1.5625rem;

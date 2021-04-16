@@ -1,26 +1,36 @@
 //You can edit ALL of the code here
-// const allEpisodes = getAllEpisodes();
-const EPISODE_API = ` https://api.tvmaze.com/shows/82/episodes`;
+const allEpisodes = getAllEpisodes();
+const allShows = getAllShows();
 
+// const EPISODES_API = `https://api.tvmaze.com/shows/2/episodes`;
+const SHOWS_API = ` https://api.tvmaze.com/shows`;
+
+
+let API_URL = [];
 function setup() {
-  fetch(`${EPISODE_API}`)
-    .then((response) => {
-      if (response.status >= 200 && response.status <= 299) {
-        return response.json();
-      } else {
-        throw new Error("There is an error in your request");
-      }
-    })
-    .then((data) => {
-      makePageForEpisodes(data);
-      dropdownMenu(data);
-    })
-    .catch((error) => console.log(error));
-}
+  fetch(SHOWS_API)
+    .then((response) => response.json())
+    .then((showIds) => {
+      showIds.forEach((showID) => {
+        let url = (`${SHOWS_API}/485/episodes`);
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          makePageForEpisodes(data);
+          dropdownMenuEpisode(data);
+        })
+       
+      });
+    });
+
+    
+    
+  }
 
 function zero(num) {
   return num < 10 ? "0" + num : num;
 }
+
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
@@ -57,10 +67,10 @@ let episodeResult = [];
 
 searchBar.addEventListener("keyup", (e) => {
   let searchString = e.target.value.toLowerCase();
-  fetch(`${EPISODE_API}`)
-    .then((response) => response.json())
-    .then((data) => (episodeResult = data));
-
+  // fetch(`${EPISODE_API}`)
+  //   .then((response) => response.json())
+  //   .then((data) => (episodeResult = data));
+  episodeResult = allEpisodes;
   let filterEpisodes = episodeResult.filter((episode) => {
     return (
       episode.name.toLowerCase().includes(searchString) ||
@@ -71,16 +81,16 @@ searchBar.addEventListener("keyup", (e) => {
   makePageForEpisodes(filterEpisodes);
 });
 
-// Dropdown
+// Dropdown menu for episode list
 const containerDiv = document.getElementById("search-container");
 const selectTag = document.createElement("select");
 containerDiv.appendChild(selectTag);
 
-function dropdownMenu(list) {
-  list.forEach((element) => {
+function dropdownMenuEpisode(epList) {
+  epList.forEach((element) => {
     const optionTag = document.createElement("option");
     selectTag.appendChild(optionTag);
-    selectTag.setAttribute("id", "dropdown");
+    selectTag.setAttribute("id", "dropdownMenu");
     selectTag.setAttribute("onchange", "location = this.value");
     optionTag.setAttribute("value", `#${element.id}`);
     optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
@@ -109,5 +119,46 @@ function dropdownMenu(list) {
 //     }`;
 //   });
 // }
-// dropdownMenu(allEpisodes);
-window.onload = setup;
+let sorted = [];
+let result;
+// Get all shows
+function setupShows() {
+  dropdownMenuShow(allShows);
+  // fetchID(allShows);
+}
+
+const selectTag2 = document.createElement("select");
+containerDiv.appendChild(selectTag2);
+
+function dropdownMenuShow(showList) {
+  showList.forEach((item) => {
+    let names = `${item.name}`;
+    sorted.push(names);
+  });
+  let sortedArr = sorted.sort();
+  result = sortedArr.forEach((show) => {
+    const optionTag = document.createElement("option");
+    selectTag2.appendChild(optionTag);
+    selectTag2.setAttribute("id", "dropdownShow");
+    // selectTag2.setAttribute("onchange", "location = this.value");
+    // optionTag.setAttribute("value", `${item.id}`);
+    optionTag.innerText = `${show}`;
+  });
+}
+// let idArr = [];
+// let idResult;
+
+// function fetchID(showID) {
+//   showID.forEach((element) => {
+//     let id = `${element.id}`;
+//     idArr.push(id);
+//   });
+//   let idSorted = idArr.sort((a, b) => a - b);
+//   return idSorted;
+// }
+
+// selectTag2.addEventListener("click", fetchID);
+
+setup();
+setupShows();
+// window.onload = setup;
