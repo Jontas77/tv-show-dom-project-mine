@@ -3,29 +3,30 @@ const allEpisodes = getAllEpisodes();
 const allShows = getAllShows();
 
 // const EPISODES_API = `https://api.tvmaze.com/shows/2/episodes`;
-const SHOWS_API = ` https://api.tvmaze.com/shows`;
+// const SHOWS_API = ` https://api.tvmaze.com/shows`;
 
 
 let API_URL = [];
 function setup() {
   fetch(SHOWS_API)
     .then((response) => response.json())
-    .then((showIds) => {
-      showIds.forEach((showID) => {
-        let url = (`${SHOWS_API}/${showID.id}/episodes`);
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          makePageForEpisodes(data);
-          dropdownMenuEpisode(data);
-        })
-       
-      });
-    });
+    .then((data) => {
+      //  makePageForEpisodes(data);
+          // dropdownMenuEpisode(data);
+          dropdownMenuShow(data);
+  //     showIds.forEach((showID) => {
+  //       let url = (`${SHOWS_API}/2/episodes`);
+  //       fetch(url)
+  //       .then(response => response.json())
+  //       .then(data => {
+  //
+  //       })
 
-    
-    
-  }
+  //     });
+     });
+
+ 
+}
 
 function zero(num) {
   return num < 10 ? "0" + num : num;
@@ -84,10 +85,13 @@ searchBar.addEventListener("keyup", (e) => {
 // Dropdown menu for episode list
 const containerDiv = document.getElementById("search-container");
 const selectTag = document.createElement("select");
+
 containerDiv.appendChild(selectTag);
 
 function dropdownMenuEpisode(epList) {
+  selectTag = '';
   epList.forEach((element) => {
+    
     const optionTag = document.createElement("option");
     selectTag.appendChild(optionTag);
     selectTag.setAttribute("id", "dropdownMenu");
@@ -141,7 +145,7 @@ function dropdownMenuShow(showList) {
     selectTag2.appendChild(optionTag);
     selectTag2.setAttribute("id", "dropdownShow");
     // selectTag2.setAttribute("onchange", "location = this.value");
-    // optionTag.setAttribute("value", `${item.id}`);
+    // optionTag.setAttribute("value", `${show.id}`);
     optionTag.innerText = `${show}`;
   });
 }
@@ -157,7 +161,9 @@ function dropdownMenuShow(showList) {
 //   return idSorted;
 // }
 
-// selectTag2.addEventListener("click", fetchID);
+selectTag2.addEventListener("change", (e) => {
+  console.log(e.target.value);
+});
 
 setup();
 setupShows();
