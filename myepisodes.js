@@ -34,7 +34,7 @@ function makePageForEpisodes(episodeList) {
 }
 
 // Search Bar
-// const searchBar = document.getElementById("searchBar");
+// const searchBar2 = document.getElementById("searchBar");
 // let episodeResult = [];
 
 // searchBar.addEventListener("keyup", (e) => {
@@ -62,11 +62,11 @@ function dropdownMenu(list) {
     selectTag.setAttribute("id", "dropdownMenu");
     selectTag.setAttribute("onchange", "location = this.value");
     optionTag.setAttribute("value", `#${element.id}`);
-    // optionTag.placeholder = 'Select Episodes';
-    // optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
-    //   element.name
-    // }`;
+    optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
+      element.name
+    }`;
   });
 }
 dropdownMenu(allEpisodes);
+makePageForEpisodes(allEpisodes);
 // window.onload = setup;

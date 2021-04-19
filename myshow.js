@@ -1,10 +1,11 @@
 const allShows = getAllShows();
+const EPISODES_API = ` https://api.tvmaze.com/shows`;
 
 function setup() {
-  makePageForShows(allShows);
+  // makePageForShows(allShows);
   dropdownMenuShows(allShows);
 }
-
+console.log(allShows);
 
 function makePageForShows(showList) {
   const rootElem = document.getElementById("root");
@@ -36,7 +37,7 @@ function makePageForShows(showList) {
 
 // Search Bar
 const searchBar = document.getElementById("searchBar");
-let episodeResult = [];
+// let episodeResult = [];
 
 searchBar.addEventListener("keyup", (e) => {
   let searchString = e.target.value.toLowerCase();
@@ -56,7 +57,7 @@ searchBar.addEventListener("keyup", (e) => {
 let sorted = [];
 let result;
 
-const containerDiv = document.getElementById("search-container");
+let containerDiv = document.getElementById("search-container");
 const selectTag2 = document.createElement("select");
 containerDiv.appendChild(selectTag2);
 
@@ -70,10 +71,23 @@ function dropdownMenuShows(showList) {
     const optionTag = document.createElement("option");
     selectTag2.appendChild(optionTag);
     selectTag2.setAttribute("id", "dropdownShow");
-    // selectTag2.setAttribute("onchange", "location = this.value");
-    // optionTag.setAttribute("value", `${show.id}`);
     optionTag.innerText = `${show}`;
   });
 }
+
+function getFetchEpisodes(episode) {
+  
+    fetch(`${EPISODES_API}`)
+    .then(response => response.json())
+    .then(data => {
+      data.map(element => console.log(element.id));
+    })
+}
+getFetchEpisodes(allShows);
+
+
+// selectTag2.addEventListener('change', (e) => {
+//   getFetchEpisodes(allShows);  
+// })
 
 window.onload = setup;
