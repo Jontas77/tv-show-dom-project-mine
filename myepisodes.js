@@ -8,7 +8,7 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   const count = document.getElementById("count");
   count.innerText = `Displaying ${episodeList.length} episode(s)`;
-  rootElem.textContent = "";
+  rootElem.innerHTML = "";
   episodeList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
@@ -22,7 +22,7 @@ function makePageForEpisodes(episodeList) {
     } - S${zero(item.season)}E${zero(item.number)}</strong></a> `;
     let imgTag = document.createElement("img");
     episodeDiv.appendChild(imgTag);
-    imgTag.src = `${item.image.medium}`;
+    imgTag.src = `${item.image === null ? '' : item.image.medium}`;
     let pSummary = document.createElement("p");
     episodeDiv.appendChild(pSummary);
     pSummary.innerHTML = `${item.summary}`;
@@ -56,6 +56,7 @@ const selectTag = document.createElement("select");
 containerDiv.appendChild(selectTag);
 
 function dropdownMenu(list) {
+  selectTag.innerHTML = '';
   list.forEach((element) => {
     const optionTag = document.createElement("option");
     selectTag.appendChild(optionTag);
@@ -67,6 +68,6 @@ function dropdownMenu(list) {
     }`;
   });
 }
-dropdownMenu(allEpisodes);
-makePageForEpisodes(allEpisodes);
+// dropdownMenu(allEpisodes);
+// makePageForEpisodes(allEpisodes);
 // window.onload = setup;

@@ -5,7 +5,7 @@ function setup() {
   // makePageForShows(allShows);
   dropdownMenuShows(allShows);
 }
-console.log(allShows);
+
 
 function makePageForShows(showList) {
   const rootElem = document.getElementById("root");
@@ -37,7 +37,6 @@ function makePageForShows(showList) {
 
 // Search Bar
 const searchBar = document.getElementById("searchBar");
-// let episodeResult = [];
 
 searchBar.addEventListener("keyup", (e) => {
   let searchString = e.target.value.toLowerCase();
@@ -74,20 +73,19 @@ function dropdownMenuShows(showList) {
     optionTag.innerText = `${show}`;
   });
 }
-
-function getFetchEpisodes(episode) {
-  
-    fetch(`${EPISODES_API}`)
+let count = 0;
+function getFetchEpisodes() {
+    dropdownMenuShows(allShows);
+    count++;
+    fetch(`${EPISODES_API}/${count}/episodes`)
     .then(response => response.json())
     .then(data => {
-      data.map(element => console.log(element.id));
+      makePageForEpisodes(data);
+      dropdownMenu(data);
+      console.log(data);
     })
 }
-getFetchEpisodes(allShows);
 
-
-// selectTag2.addEventListener('change', (e) => {
-//   getFetchEpisodes(allShows);  
-// })
-
+selectTag2.addEventListener('change', getFetchEpisodes);
+    
 window.onload = setup;
