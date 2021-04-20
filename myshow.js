@@ -75,7 +75,6 @@ function dropdownMenuShows(showList) {
 }
 let count = 0;
 function getFetchEpisodes() {
-    dropdownMenuShows(allShows);
     count++;
     fetch(`${EPISODES_API}/${count}/episodes`)
     .then(response => response.json())
