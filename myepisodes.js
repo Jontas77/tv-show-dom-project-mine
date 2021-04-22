@@ -54,13 +54,23 @@ function makePageForEpisodes(episodeList) {
 // const containerDiv = document.getElementById("search-container");
 const selectTag = document.createElement("select");
 containerDiv.appendChild(selectTag);
+selectTag.setAttribute("id", "dropdownMenu");
+
+selectTag.length = 0;
+
+let defaultOption = document.createElement("option");
+defaultOption.text = "Choose Episode";
+
+selectTag.add(defaultOption);
+selectTag.selectedIndex = 0;
 
 function dropdownMenu(list) {
+
   selectTag.innerHTML = '';
   list.forEach((element) => {
     const optionTag = document.createElement("option");
     selectTag.appendChild(optionTag);
-    selectTag.setAttribute("id", "dropdownMenu");
+   
     selectTag.setAttribute("onchange", "location = this.value");
     optionTag.setAttribute("value", `#${element.id}`);
     optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
