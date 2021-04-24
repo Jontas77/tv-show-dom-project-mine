@@ -1,47 +1,55 @@
+
 //You can edit ALL of the code here
 const allEpisodes = getAllEpisodes();
 const allShows = getAllShows();
+const SHOWS_API = ` https://api.tvmaze.com/shows`;
 
-// const EPISODES_API = `https://api.tvmaze.com/shows/2/episodes`;
-// const SHOWS_API = ` https://api.tvmaze.com/shows`;
-
-
-let API_URL = [];
 function setup() {
-  fetch(SHOWS_API)
-    .then((response) => response.json())
-    .then((data) => {
-      //  makePageForEpisodes(data);
-          // dropdownMenuEpisode(data);
-          dropdownMenuShow(data);
-  //     showIds.forEach((showID) => {
-  //       let url = (`${SHOWS_API}/2/episodes`);
-  //       fetch(url)
-  //       .then(response => response.json())
-  //       .then(data => {
-  //
-  //       })
-
-  //     });
-     });
-
- 
+  makePageForShows(allShows);
+  dropdownMenuShows(allShows);
 }
 
 function zero(num) {
   return num < 10 ? "0" + num : num;
 }
 
+function makePageForShows(showList) {
+  const rootElem = document.getElementById("root");
+  const count = document.getElementById("count");
+  count.innerText = `Displaying ${showList.length} show(s)`;
+  rootElem.textContent = "";
+  showList.forEach((item) => {
+    let episodeDiv = document.createElement("div");
+    episodeDiv.setAttribute("class", "episode");
+    episodeDiv.setAttribute("id", `${item.id}`);
+    rootElem.appendChild(episodeDiv);
+    let pTag = document.createElement("p");
+    episodeDiv.appendChild(pTag);
+    pTag.setAttribute("class", "title");
+    pTag.innerHTML = `<a href=${item.url} class="title-link"><strong>${
+      item.name}</strong></a> `;
+    let imgTag = document.createElement("img");
+    episodeDiv.appendChild(imgTag);
+    imgTag.src = `${(item.image === null ? 'Image not available' : item.image.medium)}`;
+    let pSummary = document.createElement("p");
+    episodeDiv.appendChild(pSummary);
+    pSummary.innerHTML = `${item.summary}`;
+    let link = document.createElement("a");
+    episodeDiv.appendChild(link);
+    link.setAttribute("href", `${item.url}`);
+    link.innerText = "Click here for episodes";
+  });
+}
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   const count = document.getElementById("count");
   count.innerText = `Displaying ${episodeList.length} episode(s)`;
-  rootElem.textContent = "";
+  rootElem.innerHTML = "";
   episodeList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
-    episodeDiv.setAttribute("id", `${item.id}`);
+    episodeDiv.setAttribute('id', `${item.id}`);
     rootElem.appendChild(episodeDiv);
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
@@ -51,7 +59,7 @@ function makePageForEpisodes(episodeList) {
     } - S${zero(item.season)}E${zero(item.number)}</strong></a> `;
     let imgTag = document.createElement("img");
     episodeDiv.appendChild(imgTag);
-    imgTag.src = `${item.image.medium}`;
+    imgTag.src = `${item.image === null ? '' : item.image.medium}`;
     let pSummary = document.createElement("p");
     episodeDiv.appendChild(pSummary);
     pSummary.innerHTML = `${item.summary}`;
@@ -62,16 +70,30 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-// Search Bar
+// Search Shows
 const searchBar = document.getElementById("searchBar");
 let episodeResult = [];
 
 searchBar.addEventListener("keyup", (e) => {
   let searchString = e.target.value.toLowerCase();
-  // fetch(`${EPISODE_API}`)
-  //   .then((response) => response.json())
-  //   .then((data) => (episodeResult = data));
-  episodeResult = allEpisodes;
+  showResult = getAllShows();
+  let filterShows = showResult.filter((show) => {
+    return (
+      show.name.toLowerCase().includes(searchString) ||
+      show.summary.toLowerCase().includes(searchString)
+    );
+  });
+
+  makePageForShows(filterShows);
+});
+
+// Search Episodes
+const searchBar2 = document.getElementById("searchBar");
+let episodeResult = [];
+
+searchBar.addEventListener("keyup", (e) => {
+  let searchString = e.target.value.toLowerCase();
+  episodeResult = getAllEpisodes();
   let filterEpisodes = episodeResult.filter((episode) => {
     return (
       episode.name.toLowerCase().includes(searchString) ||
@@ -82,59 +104,16 @@ searchBar.addEventListener("keyup", (e) => {
   makePageForEpisodes(filterEpisodes);
 });
 
-// Dropdown menu for episode list
-const containerDiv = document.getElementById("search-container");
-const selectTag = document.createElement("select");
-
-containerDiv.appendChild(selectTag);
-
-function dropdownMenuEpisode(epList) {
-  selectTag = '';
-  epList.forEach((element) => {
-    
-    const optionTag = document.createElement("option");
-    selectTag.appendChild(optionTag);
-    selectTag.setAttribute("id", "dropdownMenu");
-    selectTag.setAttribute("onchange", "location = this.value");
-    optionTag.setAttribute("value", `#${element.id}`);
-    optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
-      element.name
-    }`;
-  });
-}
-
-// function dropdownMenu(select) {
-//   const dropDownDiv = document.createElement("div");
-//   containerDiv.appendChild(dropDownDiv);
-//   dropDownDiv.setAttribute("class", "dropdown");
-
-//   select.forEach((show) => {
-//     const ulTag = document.createElement("ul");
-//     dropDownDiv.appendChild(ulTag);
-//     ulTag.setAttribute("class", "dropdown-list");
-//     const liTag = document.createElement("li");
-//     ulTag.appendChild(liTag);
-//     liTag.setAttribute("class", "dropdown-item");
-//     const linkTag = document.createElement("a");
-//     liTag.appendChild(linkTag);
-//     linkTag.setAttribute("href", `${show.name}`);
-//     linkTag.innerText = `S${zero(show.season)}E${zero(show.number)} - ${
-//       show.name
-//     }`;
-//   });
-// }
+// Dropdown Shows
 let sorted = [];
 let result;
-// Get all shows
-function setupShows() {
-  dropdownMenuShow(allShows);
-  // fetchID(allShows);
-}
 
+const containerDiv = document.getElementById("search-container");
 const selectTag2 = document.createElement("select");
 containerDiv.appendChild(selectTag2);
+selectTag2.setAttribute("id", "dropdownShow");
 
-function dropdownMenuShow(showList) {
+function dropdownMenuShows(showList) {
   showList.forEach((item) => {
     let names = `${item.name}`;
     sorted.push(names);
@@ -143,28 +122,79 @@ function dropdownMenuShow(showList) {
   result = sortedArr.forEach((show) => {
     const optionTag = document.createElement("option");
     selectTag2.appendChild(optionTag);
-    selectTag2.setAttribute("id", "dropdownShow");
-    // selectTag2.setAttribute("onchange", "location = this.value");
-    // optionTag.setAttribute("value", `${show.id}`);
     optionTag.innerText = `${show}`;
   });
 }
-// let idArr = [];
-// let idResult;
 
-// function fetchID(showID) {
-//   showID.forEach((element) => {
-//     let id = `${element.id}`;
-//     idArr.push(id);
-//   });
-//   let idSorted = idArr.sort((a, b) => a - b);
-//   return idSorted;
-// }
+// Dropdown Episodes
+const selectTag = document.createElement("select");
+containerDiv.appendChild(selectTag);
+selectTag.setAttribute("id", "dropdownMenu");
+
+selectTag.length = 0;
+
+let defaultOption = document.createElement("option");
+defaultOption.text = "Choose Episode";
+
+selectTag.add(defaultOption);
+selectTag.selectedIndex = 0;
+
+function dropdownMenu(list) {
+
+  selectTag.innerHTML = '';
+  list.forEach((element) => {
+    const optionTag = document.createElement("option");
+    selectTag.appendChild(optionTag);
+   
+    selectTag.setAttribute("onchange", "location = this.value");
+    optionTag.setAttribute("value", `#${element.id}`);
+    optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
+      element.name
+    }`;
+  });
+}
+
+selectTag.length = 0;
+
+let defaultOption = document.createElement("option");
+defaultOption.text = "Choose Episode";
+
+selectTag.add(defaultOption);
+selectTag.selectedIndex = 0;
 
 selectTag2.addEventListener("change", (e) => {
-  console.log(e.target.value);
-});
+  let showName = e.target.value;
+  let result;
+  let showID = allShows.forEach((item) => {
+    if (item.name === showName) {
+       result = item.id;
+    }
+  });
+  const EPISODES_API = `https://api.tvmaze.com/shows`;
+  fetch(`${EPISODES_API}/${result}/episodes`)
+    .then(function (response) {
+      if (response.status !== 200) {
+        console.warn(
+          "Looks like there was a problem. Status Code: " + response.status
+        );
+        return;
+      }
 
-setup();
-setupShows();
-// window.onload = setup;
+      // Examine the text in the response
+      response.json().then(function (data) {
+        let option;
+       console.log(data);
+        selectTag.innerHTML = '';
+        for (let i = 0; i < data.length; i++) {
+          option = document.createElement("option");
+          option.text = data[i].name;
+          option.value = data[i].abbreviation;
+          selectTag.add(option);
+        }
+      });
+    })
+    .catch(function (err) {
+      console.error("Fetch Error -", err);
+    });
+});
+window.onload = setup;
