@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-const allShows = getAllShows();
+
+// const allShows = getAllShows();
 
 function setup() {
   makePageForShows(allShows);
@@ -77,8 +77,8 @@ function dropdownMenuShows(showList) {
   });
 }
 
-window.onload = setup;
-=======
+
+
 const allShows = getAllShows();
 const EPISODES_API = ` https://api.tvmaze.com/shows`;
 
@@ -142,25 +142,25 @@ const selectTag2 = document.createElement("select");
 containerDiv.appendChild(selectTag2);
 selectTag2.setAttribute("id", "dropdownShow");
 
-// function dropdownMenuShows(showList) {
-//   showList.forEach((item) => {
-//     let names = `${item.name}`;
-//     sorted.push(names);
-//   });
-//   let sortedArr = sorted.sort();
-//   result = sortedArr.forEach((show) => {
-//     const optionTag = document.createElement("option");
-//     selectTag2.appendChild(optionTag);
+function dropdownMenuShows(showList) {
+  showList.forEach((item) => {
+    let names = `${item.name}`;
+    sorted.push(names);
+  });
+  let sortedArr = sorted.sort();
+  result = sortedArr.forEach((show) => {
+    const optionTag = document.createElement("option");
+    selectTag2.appendChild(optionTag);
 
-//     optionTag.innerText = `${show}`;
-//     optionTag.className = "showName";
-//     optionTag.setAttribute('value', `${show}`)
-//   })
+    optionTag.innerText = `${show}`;
+    optionTag.className = "showName";
+    optionTag.setAttribute('value', `${show}`)
+  })
 
-//   }
+  }
 
-let count = 0;
-let idResult = [];
+// let count = 0;
+// let idResult = [];
 // function getFetchEpisodes() {
 //     allShows.forEach(show => {
 //       idResult.push(show.id);
@@ -213,4 +213,4 @@ fetch(`${EPISODES_API}/82/episodes`).then(function (response) {
     });
 
 window.onload = setup;
->>>>>>> 5bd95b5a05fad155f2370235138d756743c7153e
+

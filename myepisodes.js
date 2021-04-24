@@ -1,9 +1,9 @@
-<<<<<<< HEAD
-const allEpisodes = getAllEpisodes();
 
-function zero(num) {
-  return num < 10 ? "0" + num : num;
-}
+// const allEpisodes = getAllEpisodes();
+
+// function zero(num) {
+//   return num < 10 ? "0" + num : num;
+// }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
@@ -34,43 +34,43 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
-// Search Bar
-// const searchBar = document.getElementById("searchBar");
-// let episodeResult = [];
+// // Search Bar
+// // const searchBar = document.getElementById("searchBar");
+// // let episodeResult = [];
 
-// searchBar.addEventListener("keyup", (e) => {
-//   let searchString = e.target.value.toLowerCase();
-//   episodeResult = getAllEpisodes();
-//   let filterEpisodes = episodeResult.filter((episode) => {
-//     return (
-//       episode.name.toLowerCase().includes(searchString) ||
-//       episode.summary.toLowerCase().includes(searchString)
-//     );
+// // searchBar.addEventListener("keyup", (e) => {
+// //   let searchString = e.target.value.toLowerCase();
+// //   episodeResult = getAllEpisodes();
+// //   let filterEpisodes = episodeResult.filter((episode) => {
+// //     return (
+// //       episode.name.toLowerCase().includes(searchString) ||
+// //       episode.summary.toLowerCase().includes(searchString)
+// //     );
+// //   });
+
+// //   makePageForEpisodes(filterEpisodes);
+// // });
+
+// // Dropdown
+// // const containerDiv = document.getElementById("search-container");
+// const selectTag = document.createElement("select");
+// containerDiv.appendChild(selectTag);
+
+// function dropdownMenu(list) {
+//   list.forEach((element) => {
+//     const optionTag = document.createElement("option");
+//     selectTag.appendChild(optionTag);
+//     selectTag.setAttribute("id", "dropdownMenu");
+//     selectTag.setAttribute("onchange", "location = this.value");
+//     optionTag.setAttribute("value", `#${element.id}`);
+//     // optionTag.placeholder = 'Select Episodes';
+//     // optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
+//     //   element.name
+//     // }`;
 //   });
+// }
+// dropdownMenu(allEpisodes);
 
-//   makePageForEpisodes(filterEpisodes);
-// });
-
-// Dropdown
-// const containerDiv = document.getElementById("search-container");
-const selectTag = document.createElement("select");
-containerDiv.appendChild(selectTag);
-
-function dropdownMenu(list) {
-  list.forEach((element) => {
-    const optionTag = document.createElement("option");
-    selectTag.appendChild(optionTag);
-    selectTag.setAttribute("id", "dropdownMenu");
-    selectTag.setAttribute("onchange", "location = this.value");
-    optionTag.setAttribute("value", `#${element.id}`);
-    // optionTag.placeholder = 'Select Episodes';
-    // optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
-    //   element.name
-    // }`;
-  });
-}
-dropdownMenu(allEpisodes);
-=======
 const allEpisodes = getAllEpisodes();
 
 function zero(num) {
@@ -124,7 +124,7 @@ function makePageForEpisodes(episodeList) {
 // });
 
 // Dropdown
-// const containerDiv = document.getElementById("search-container");
+const containerDiv = document.getElementById("search-container");
 const selectTag = document.createElement("select");
 containerDiv.appendChild(selectTag);
 selectTag.setAttribute("id", "dropdownMenu");
@@ -152,6 +152,4 @@ function dropdownMenu(list) {
   });
 }
 // dropdownMenu(allEpisodes);
-// makePageForEpisodes(allEpisodes);
->>>>>>> 5bd95b5a05fad155f2370235138d756743c7153e
-// window.onload = setup;
+// makePageForEpisodes(allEpisode)
