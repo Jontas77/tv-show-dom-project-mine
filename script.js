@@ -144,7 +144,7 @@ function dropdownMenu(list) {
     }`;
   });
 }
-
+let epResult;
 selectTag.length = 0;
 
 selectTag.add(defaultOption);
@@ -191,18 +191,15 @@ selectTag2.addEventListener("change", (e) => {
         });
         makePageForEpisodes(filterEpisodes);
       });
-      selectTag.addEventListener('change', (e) => {
+
+      selectTag.addEventListener("change", (e) => {
         let episodeName = e.target.value;
-        let epResult;
-        // selectTag.innerHTML = '';
-        let episodesResult = data;
-        let filterEp = episodesResult.filter((episode) => {
-          
-           
-          
-          })
-          makePageForEpisodes(filterEp);
-      })
+        console.log(episodeName);
+       episodes = data;
+       let filtered = episodes.filter(items => {
+         console.log(items.name);
+       })
+      });
     })
     .catch((err) => {
       console.error("Fetch Error -", err);
