@@ -1,8 +1,6 @@
-
 //You can edit ALL of the code here
-const allEpisodes = getAllEpisodes();
 const allShows = getAllShows();
-const SHOWS_API = ` https://api.tvmaze.com/shows`;
+const EPISODES_API = `https://api.tvmaze.com/shows`;
 
 function setup() {
   makePageForShows(allShows);
@@ -26,11 +24,10 @@ function makePageForShows(showList) {
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
     pTag.setAttribute("class", "title");
-    pTag.innerHTML = `<a href=${item.url} class="title-link"><strong>${
-      item.name}</strong></a> `;
+    pTag.innerHTML = `<a href=${item.url} class="title-link"><strong>${item.name}</strong></a> `;
     let imgTag = document.createElement("img");
     episodeDiv.appendChild(imgTag);
-    imgTag.src = `${(item.image === null ? 'Image not available' : item.image.medium)}`;
+    imgTag.src = `${item.image != null ? item.image.medium : ""}`;
     let pSummary = document.createElement("p");
     episodeDiv.appendChild(pSummary);
     pSummary.innerHTML = `${item.summary}`;
@@ -49,7 +46,7 @@ function makePageForEpisodes(episodeList) {
   episodeList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
-    episodeDiv.setAttribute('id', `${item.id}`);
+    episodeDiv.setAttribute("id", `${item.id}`);
     rootElem.appendChild(episodeDiv);
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
@@ -59,7 +56,7 @@ function makePageForEpisodes(episodeList) {
     } - S${zero(item.season)}E${zero(item.number)}</strong></a> `;
     let imgTag = document.createElement("img");
     episodeDiv.appendChild(imgTag);
-    imgTag.src = `${item.image === null ? '' : item.image.medium}`;
+    imgTag.src = `${item.image != null ? item.image.medium : ""}`;
     let pSummary = document.createElement("p");
     episodeDiv.appendChild(pSummary);
     pSummary.innerHTML = `${item.summary}`;
@@ -72,7 +69,6 @@ function makePageForEpisodes(episodeList) {
 
 // Search Shows
 const searchBar = document.getElementById("searchBar");
-let episodeResult = [];
 
 searchBar.addEventListener("keyup", (e) => {
   let searchString = e.target.value.toLowerCase();
@@ -91,18 +87,18 @@ searchBar.addEventListener("keyup", (e) => {
 const searchBar2 = document.getElementById("searchBar");
 let episodeResult = [];
 
-searchBar.addEventListener("keyup", (e) => {
-  let searchString = e.target.value.toLowerCase();
-  episodeResult = getAllEpisodes();
-  let filterEpisodes = episodeResult.filter((episode) => {
-    return (
-      episode.name.toLowerCase().includes(searchString) ||
-      episode.summary.toLowerCase().includes(searchString)
-    );
-  });
+// searchBar.addEventListener("keyup", (e) => {
+//   let searchString = e.target.value.toLowerCase();
+//   episodeResult = getAllEpisodes();
+//   let filterEpisodes = episodeResult.filter((episode) => {
+//     return (
+//       episode.name.toLowerCase().includes(searchString) ||
+//       episode.summary.toLowerCase().includes(searchString)
+//     );
+//   });
 
-  makePageForEpisodes(filterEpisodes);
-});
+//   makePageForEpisodes(filterEpisodes);
+// });
 
 // Dropdown Shows
 let sorted = [];
@@ -140,14 +136,9 @@ selectTag.add(defaultOption);
 selectTag.selectedIndex = 0;
 
 function dropdownMenu(list) {
-
-  selectTag.innerHTML = '';
   list.forEach((element) => {
     const optionTag = document.createElement("option");
     selectTag.appendChild(optionTag);
-   
-    selectTag.setAttribute("onchange", "location = this.value");
-    optionTag.setAttribute("value", `#${element.id}`);
     optionTag.innerText = `S${zero(element.season)}E${zero(element.number)} - ${
       element.name
     }`;
@@ -155,9 +146,6 @@ function dropdownMenu(list) {
 }
 
 selectTag.length = 0;
-
-let defaultOption = document.createElement("option");
-defaultOption.text = "Choose Episode";
 
 selectTag.add(defaultOption);
 selectTag.selectedIndex = 0;
@@ -167,34 +155,58 @@ selectTag2.addEventListener("change", (e) => {
   let result;
   let showID = allShows.forEach((item) => {
     if (item.name === showName) {
-       result = item.id;
+      result = item.id;
     }
   });
-  const EPISODES_API = `https://api.tvmaze.com/shows`;
+
   fetch(`${EPISODES_API}/${result}/episodes`)
-    .then(function (response) {
-      if (response.status !== 200) {
+    .then((response) => {
+      if (response.status >= 200 && response.status <= 299) {
+        return response.json();
+      } else {
         console.warn(
           "Looks like there was a problem. Status Code: " + response.status
         );
-        return;
       }
-
-      // Examine the text in the response
-      response.json().then(function (data) {
-        let option;
-       console.log(data);
-        selectTag.innerHTML = '';
-        for (let i = 0; i < data.length; i++) {
-          option = document.createElement("option");
-          option.text = data[i].name;
-          option.value = data[i].abbreviation;
-          selectTag.add(option);
-        }
-      });
     })
-    .catch(function (err) {
+    .then((data) => {
+      let option;
+      selectTag.innerHTML = "";
+      makePageForEpisodes(data);
+      dropdownMenu(data);
+      // for (let i = 0; i < data.length; i++) {
+      //   option = document.createElement("option");
+      //   option.text = data[i].name;
+      //   option.value = data[i].abbreviation;
+      //   selectTag.add(option);
+      // }
+      searchBar.addEventListener("keyup", (e) => {
+        let searchString = e.target.value.toLowerCase();
+        episodeResult = data;
+        let filterEpisodes = episodeResult.filter((episode) => {
+          return (
+            episode.name.toLowerCase().includes(searchString) ||
+            episode.summary.toLowerCase().includes(searchString)
+          );
+        });
+        makePageForEpisodes(filterEpisodes);
+      });
+      selectTag.addEventListener('change', (e) => {
+        let episodeName = e.target.value;
+        let epResult;
+        // selectTag.innerHTML = '';
+        let episodesResult = data;
+        let filterEp = episodesResult.filter((episode) => {
+          
+           
+          
+          })
+          makePageForEpisodes(filterEp);
+      })
+    })
+    .catch((err) => {
       console.error("Fetch Error -", err);
     });
 });
+
 window.onload = setup;
