@@ -1,6 +1,5 @@
 //You can edit ALL of the code here
 const allShows = getAllShows();
-const EPISODES_API = `https://api.tvmaze.com/shows`;
 
 function setup() {
   makePageForShows(allShows);
@@ -153,7 +152,6 @@ function dropdownMenu(list) {
 }
 let epResult;
 
-
 selectTag2.addEventListener("change", (e) => {
   let showName = e.target.value;
   let result;
@@ -162,6 +160,8 @@ selectTag2.addEventListener("change", (e) => {
       result = item.id;
     }
   });
+
+  const EPISODES_API = `https://api.tvmaze.com/shows`;
 
   fetch(`${EPISODES_API}/${result}/episodes`)
     .then((response) => {
@@ -174,15 +174,12 @@ selectTag2.addEventListener("change", (e) => {
       }
     })
     .then((data) => {
+      // selectTag2.classList.add('dropdown');
       selectTag.innerHTML = "";
+
       makePageForEpisodes(data);
       dropdownMenu(data);
-      // for (let i = 0; i < data.length; i++) {
-      //   option = document.createElement("option");
-      //   option.text = data[i].name;
-      //   option.value = data[i].abbreviation;
-      //   selectTag.add(option);
-      // }
+      
       searchBar.addEventListener("keyup", (e) => {
         let searchString = e.target.value.toLowerCase();
         episodeResult = data;
@@ -197,14 +194,10 @@ selectTag2.addEventListener("change", (e) => {
 
       selectTag.addEventListener("change", (e) => {
         let episodeName = e.target.value;
-        console.log(episodeName);
         let result = [];
-        episodes = [];
-        if (episodeName == 1) {
-          return data;
-        } else {
-          episodes.push(data);
-        }
+        let episodes = [];
+        episodes.push(data);
+
         episodes.forEach((element) => {
           element.forEach((episode) => {
             if (episodeName.includes(`${episode.name}`)) {

@@ -43,6 +43,12 @@ body {
 
 .episode a {
   text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.episode a:hover {
+  color: red;
 }
 
 .title {
@@ -119,4 +125,8 @@ body {
   border-radius: 2rem;
   font-size: 1rem;
   outline: none;
+}
+
+.dropdown {
+  display: none;
 }
