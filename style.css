@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
 
 
 
@@ -6,6 +7,21 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   background-color: lightslategray;
+  
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2d98da;
+  padding: 0 30px;
+}
+
+.heading h1 {
+  font-family: 'New Tegomin', serif;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 #root {
@@ -33,7 +49,7 @@ body {
   border: 1px solid lightgrey;
   border-radius: 10px;
   padding: 1rem 0px;
-  background-color: rgba(40, 153, 40, 0.877);
+  background-color: #2d98da;
   color: #fff;
   cursor: pointer;
 }
@@ -51,27 +67,27 @@ body {
 
 #search-container {
   position: relative;
-  background-color: rgba(40, 153, 40, 0.877);
+  background-color: #2d98da;
   height: 5rem;
 }
 
 #searchBar {
-  width: 20%;
+  outline: none;
+  width: 45%;
   height: 2rem;
-  position: absolute;
-  top: 1rem;
-  left: 45.125rem;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
+  border: 1px solid #cacaca;;
+  border-radius: 30px;
   padding: 0.3125rem 0.625rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  box-shadow: inset 0 1px 2px rgb(10 10 10 / 10%);
+  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
 }
 
 #search-container::after {
   content: '🔍';
   position: absolute;
-  top: 1.5625rem;
-  right: 22.1875rem;
+  top: -3.4375rem;
+  right: 4.1875rem;
 }
 
 #count {
@@ -85,21 +101,22 @@ body {
 
 #dropdownMenu {
   height: 2.8125rem;
-  width: 25%;
+  width: 30%;
   position: absolute;
   top: 0.9375rem;
-  left: 23.5625rem;
-  border-radius: 10px;
+  left: 31.5625rem;
+  border-radius: 2rem;
   font-size: 1rem;
-   
+  outline: none;
 }
 
 #dropdownShow {
   height: 2.8125rem;
-  width: 25%;
+  width: 30%;
   position: absolute;
   top: 0.9375rem;
   left: 1.5625rem;
-  border-radius: 10px;
+  border-radius: 2rem;
   font-size: 1rem;
+  outline: none;
 }

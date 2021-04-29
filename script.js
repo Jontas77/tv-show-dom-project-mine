@@ -19,7 +19,6 @@ function makePageForShows(showList) {
   showList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
-    episodeDiv.setAttribute("id", `${item.id}`);
     rootElem.appendChild(episodeDiv);
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
@@ -46,7 +45,7 @@ function makePageForEpisodes(episodeList) {
   episodeList.forEach((item) => {
     let episodeDiv = document.createElement("div");
     episodeDiv.setAttribute("class", "episode");
-    episodeDiv.setAttribute("id", `${item.id}`);
+    // episodeDiv.setAttribute("id", `${item.id}`);
     rootElem.appendChild(episodeDiv);
     let pTag = document.createElement("p");
     episodeDiv.appendChild(pTag);
@@ -109,6 +108,14 @@ const selectTag2 = document.createElement("select");
 containerDiv.appendChild(selectTag2);
 selectTag2.setAttribute("id", "dropdownShow");
 
+// selectTag2.length = 0;
+
+// let defaultOptionShow = document.createElement("option");
+// defaultOptionShow.text = "Choose Show";
+
+// selectTag2.add(defaultOptionShow);
+// selectTag2.selectedIndex = 0;
+
 function dropdownMenuShows(showList) {
   showList.forEach((item) => {
     let names = `${item.name}`;
@@ -145,10 +152,7 @@ function dropdownMenu(list) {
   });
 }
 let epResult;
-selectTag.length = 0;
 
-selectTag.add(defaultOption);
-selectTag.selectedIndex = 0;
 
 selectTag2.addEventListener("change", (e) => {
   let showName = e.target.value;
@@ -170,7 +174,6 @@ selectTag2.addEventListener("change", (e) => {
       }
     })
     .then((data) => {
-      let option;
       selectTag.innerHTML = "";
       makePageForEpisodes(data);
       dropdownMenu(data);
@@ -195,10 +198,21 @@ selectTag2.addEventListener("change", (e) => {
       selectTag.addEventListener("change", (e) => {
         let episodeName = e.target.value;
         console.log(episodeName);
-       episodes = data;
-       let filtered = episodes.filter(items => {
-         console.log(items.name);
-       })
+        let result = [];
+        episodes = [];
+        if (episodeName == 1) {
+          return data;
+        } else {
+          episodes.push(data);
+        }
+        episodes.forEach((element) => {
+          element.forEach((episode) => {
+            if (episodeName.includes(`${episode.name}`)) {
+              result.push(episode);
+            }
+          });
+        });
+        makePageForEpisodes(result);
       });
     })
     .catch((err) => {
