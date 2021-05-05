@@ -11,16 +11,23 @@
   <body>
     <header>
       <div class="heading">
-        <h1>TV SHOWS</h1>
-        <input type="text" name="searchBar" id="searchBar" placeholder="Search">
+        <h1 class="tv-show" onclick="Refresh()">TV SHOWS</h1>
+        <input
+          type="text"
+          name="searchBar"
+          id="searchBar"
+          placeholder="Search"
+        />
       </div>
     </header>
 
-    <div id="dropdown-container">
-     <span id="count"></span>
-    </div>
-    <div id="root">
-    </div>
+    <nav>
+      <div id="dropdown-container">
+        <span id="count"></span>
+      </div>
+    </nav>
+
+    <div id="root"></div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
@@ -28,8 +35,7 @@
     <!-- Loads shows by function getAllShows()-->
     <script src="shows.js"></script>
 
-    <!-- Loads YOUR javascript code--> 
+    <!-- Loads YOUR javascript code-->
     <script src="script.js"></script>
-
   </body>
 </html>

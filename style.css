@@ -82,6 +82,8 @@ body {
   font-family: 'New Tegomin', serif;
   font-size: 2rem;
   font-weight: bold;
+  border: 5px solid rgb(20, 201, 183);
+  padding: 1rem;
 }
 
 #root {
@@ -173,7 +175,7 @@ body {
 #dropdown-container::after {
   content: '🔍';
   position: absolute;
-  top: -3.4375rem;
+  top: -4.5425rem;
   right: 4.1875rem;
 }
 
@@ -210,5 +212,13 @@ body {
 
 .dropdown {
   display: none;
+}
+
+#showcardName {
+  cursor: pointer;
+}
+
+.tv-show {
+  cursor: pointer;
 }
 
